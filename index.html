@@ -3,90 +3,254 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Latenora | HabitSight</title>
+  <title>Latenora</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f7f5ff;
-      color: #111827;
-      text-align: center;
+      font-family: Inter, Arial, sans-serif;
+      color: #0f172a;
+      background: #f3f0ff;
+    }
+
+    main {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background:
+        radial-gradient(circle at center, rgba(255,255,255,0.95), rgba(239,232,255,0.95)),
+        linear-gradient(135deg, #f8f6ff, #ebe4ff);
+      overflow: hidden;
     }
 
     .hero {
-      padding: 80px 24px;
-      max-width: 760px;
-      margin: auto;
+      position: relative;
+      width: 100%;
+      max-width: 1180px;
+      min-height: 760px;
+      padding: 40px 32px 30px;
+      text-align: center;
     }
 
-    h1 {
-      font-size: 44px;
-      margin-bottom: 12px;
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -190px -120px auto -120px;
+      height: 720px;
+      background:
+        radial-gradient(circle, transparent 38%, rgba(255,255,255,0.85) 38.2%, transparent 38.6%),
+        radial-gradient(circle, transparent 48%, rgba(255,255,255,0.65) 48.2%, transparent 48.6%),
+        radial-gradient(circle, transparent 58%, rgba(255,255,255,0.45) 58.2%, transparent 58.6%);
+      pointer-events: none;
+      z-index: 0;
     }
 
-    p {
-      font-size: 18px;
-      color: #5f6675;
-      line-height: 1.6;
+    .brand-section,
+    .product-card,
+    .footer-links,
+    .copyright {
+      position: relative;
+      z-index: 1;
     }
 
-    .card {
-      background: rgba(255,255,255,0.6);
-      backdrop-filter: blur(20px);
-      border-radius: 24px;
-      padding: 40px;
-      margin-top: 30px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    .brand-logo {
+      width: 430px;
+      max-width: 85%;
+      display: block;
+      margin: 0 auto;
     }
 
-    .cta-button {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 12px 24px;
-      background: #5a46f5;
-      color: white;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: 0.3s;
+    .trust-line {
+      margin: 26px 0 30px;
+      font-size: 20px;
+      color: #475569;
+    }
+
+    .product-card {
+      width: 920px;
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 40px 58px;
+      display: flex;
+      align-items: center;
+      gap: 64px;
+      text-align: left;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(255,255,255,0.9);
+      box-shadow: 0 32px 80px rgba(76, 29, 149, 0.16);
+      backdrop-filter: blur(18px);
+    }
+
+    .app-icon {
+      width: 190px;
+      height: 190px;
+      border-radius: 34px;
+      box-shadow: 0 20px 45px rgba(91, 67, 255, 0.32);
+    }
+
+    .product-content h1 {
+      margin: 0 0 18px;
+      font-size: 42px;
+      line-height: 1.1;
+      font-weight: 800;
+    }
+
+    .product-content p {
+      margin: 0 0 28px;
+      font-size: 21px;
+      line-height: 1.55;
+      color: #475569;
+    }
+
+    .play-button {
       border: none;
-      cursor: pointer;
+      border-radius: 16px;
+      padding: 17px 34px;
+      font-size: 18px;
+      font-weight: 700;
+      color: white;
+      background: linear-gradient(135deg, #7c3aed, #4f46e5);
+      box-shadow: 0 16px 35px rgba(79, 70, 229, 0.35);
+      cursor: default;
     }
 
-    .cta-button:hover {
-      background: #4836d1;
+    .footer-links {
+      margin-top: 34px;
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      font-size: 20px;
+      font-weight: 700;
     }
 
-    a {
-      color: #5a46f5;
-      margin: 0 10px;
+    .footer-links a {
+      color: #4f46e5;
       text-decoration: none;
-      font-weight: 600;
+    }
+
+    .footer-links span {
+      color: #7c6fd6;
+    }
+
+    .copyright {
+      margin-top: 22px;
+      font-size: 18px;
+      color: #64748b;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        align-items: flex-start;
+      }
+
+      .hero {
+        padding: 32px 20px;
+        min-height: 100vh;
+      }
+
+      .brand-logo {
+        width: 310px;
+      }
+
+      .trust-line {
+        font-size: 15px;
+        margin: 22px 0 24px;
+      }
+
+      .product-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 26px;
+        padding: 34px 24px;
+      }
+
+      .app-icon {
+        width: 140px;
+        height: 140px;
+      }
+
+      .product-content h1 {
+        font-size: 34px;
+      }
+
+      .product-content p {
+        font-size: 17px;
+      }
+
+      .play-button {
+        font-size: 15px;
+        padding: 15px 24px;
+      }
+
+      .footer-links {
+        font-size: 16px;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .copyright {
+        font-size: 15px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <main class="hero">
-    <h1>Latenora</h1>
-    <p>Building calm, privacy-first digital wellbeing tools.</p>
+  <main>
+    <section class="hero">
 
-    <div class="card">
-      <h2>HabitSight</h2>
-      <p>
-        Understand your screen time, focus patterns, and digital habits
-        — on device, with no account required.
+      <div class="brand-section">
+        <img
+          src="assets/images/latenora-logo.png"
+          alt="Latenora"
+          class="brand-logo"
+        />
+
+        <p class="trust-line">
+          🛡 Designed in Sweden. Built with care.
+        </p>
+      </div>
+
+      <div class="product-card">
+        <img
+          src="assets/images/habitsight-icon.png"
+          alt="HabitSight app icon"
+          class="app-icon"
+        />
+
+        <div class="product-content">
+          <h1>HabitSight</h1>
+
+          <p>
+            Understand your screen time, focus patterns,<br />
+            and digital habits — on device, with no account required.
+          </p>
+
+          <button class="play-button">
+            ▶ Coming Soon on Play Store
+          </button>
+        </div>
+      </div>
+
+      <nav class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <span>|</span>
+        <a href="terms.html">Terms</a>
+        <span>|</span>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <p class="copyright">
+        © 2026 Latenora — All rights reserved.
       </p>
 
-      <button class="cta-button">Coming Soon on Play Store</button>
-    </div>
-
-    <p>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms</a>
-      <a href="contact.html">Contact</a>
-    </p>
+    </section>
   </main>
 </body>
 </html>
