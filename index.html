@@ -63,12 +63,16 @@
       max-width: 85%;
       display: block;
       margin: 0 auto;
+      background: transparent;
+      box-shadow: none;
+      filter: drop-shadow(0 8px 20px rgba(124, 58, 237, 0.15));
     }
 
     .trust-line {
-      margin: 26px 0 30px;
-      font-size: 20px;
-      color: #475569;
+      margin: 26px 0 36px;
+      font-size: 18px;
+      color: #64748b;
+      letter-spacing: 0.3px;
     }
 
     .product-card {
@@ -85,6 +89,12 @@
       border: 1px solid rgba(255,255,255,0.9);
       box-shadow: 0 32px 80px rgba(76, 29, 149, 0.16);
       backdrop-filter: blur(18px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 40px 100px rgba(76, 29, 149, 0.22);
     }
 
     .app-icon {
@@ -93,7 +103,9 @@
       border-radius: 34px;
       display: block;
       object-fit: cover;
-      box-shadow: 0 20px 45px rgba(91, 67, 255, 0.32);
+      box-shadow:
+        0 20px 45px rgba(91, 67, 255, 0.32),
+        0 0 30px rgba(124, 58, 237, 0.25);
     }
 
     .product-content h1 {
@@ -121,6 +133,12 @@
       background: linear-gradient(135deg, #7c3aed, #4f46e5);
       box-shadow: 0 16px 35px rgba(79, 70, 229, 0.35);
       cursor: default;
+      transition: all 0.25s ease;
+    }
+
+    .play-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 45px rgba(79, 70, 229, 0.45);
     }
 
     .footer-links {
@@ -164,7 +182,7 @@
 
       .trust-line {
         font-size: 15px;
-        margin: 22px 0 24px;
+        margin: 22px 0 28px;
       }
 
       .product-card {
@@ -217,7 +235,7 @@
         />
 
         <p class="trust-line">
-          🛡 Designed in Sweden. Built with care.
+          Designed in Sweden · Built with care
         </p>
       </div>
 
