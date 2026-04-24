@@ -12,7 +12,7 @@
 
     body {
       margin: 0;
-      font-family: Inter, Arial, sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       color: #0f172a;
       background: #f3f0ff;
     }
@@ -23,7 +23,7 @@
       justify-content: center;
       align-items: center;
       background:
-        radial-gradient(circle at center, rgba(255,255,255,0.95), rgba(239,232,255,0.95)),
+        radial-gradient(circle at center, rgba(255,255,255,0.96), rgba(239,232,255,0.94)),
         linear-gradient(135deg, #f8f6ff, #ebe4ff);
       overflow: hidden;
     }
@@ -91,6 +91,8 @@
       width: 190px;
       height: 190px;
       border-radius: 34px;
+      display: block;
+      object-fit: cover;
       box-shadow: 0 20px 45px rgba(91, 67, 255, 0.32);
     }
 
@@ -99,6 +101,7 @@
       font-size: 42px;
       line-height: 1.1;
       font-weight: 800;
+      color: #0f172a;
     }
 
     .product-content p {
@@ -114,7 +117,7 @@
       padding: 17px 34px;
       font-size: 18px;
       font-weight: 700;
-      color: white;
+      color: #ffffff;
       background: linear-gradient(135deg, #7c3aed, #4f46e5);
       box-shadow: 0 16px 35px rgba(79, 70, 229, 0.35);
       cursor: default;
@@ -124,6 +127,7 @@
       margin-top: 34px;
       display: flex;
       justify-content: center;
+      align-items: center;
       gap: 28px;
       font-size: 20px;
       font-weight: 700;
@@ -239,11 +243,11 @@
       </div>
 
       <nav class="footer-links">
-        <a href="privacy.html">Privacy Policy</a>
+        <a href="./privacy.html">Privacy Policy</a>
         <span>|</span>
-        <a href="terms.html">Terms</a>
+        <a href="./terms.html">Terms</a>
         <span>|</span>
-        <a href="contact.html">Contact</a>
+        <a href="./contact.html">Contact</a>
       </nav>
 
       <p class="copyright">
