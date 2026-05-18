@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -9,6 +9,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
 
   <style>
     :root {
@@ -22,7 +28,6 @@
       --primary-dark: #4f2bdc;
       --primary-soft: #efeaff;
       --green: #4fbe86;
-      --blue: #2f7df1;
       --shadow: 0 24px 80px rgba(27, 19, 67, 0.10);
       --shadow-soft: 0 12px 36px rgba(27, 19, 67, 0.065);
       --radius-lg: 32px;
@@ -31,64 +36,20 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
-
     body {
       font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at 12% 10%, rgba(111, 66, 255, 0.08), transparent 28%),
-        radial-gradient(circle at 86% 18%, rgba(111, 66, 255, 0.12), transparent 30%),
-        linear-gradient(180deg, #ffffff 0%, #fbfbfd 42%, #f7f5ff 100%);
       color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(111, 66, 255, 0.10), transparent 26%),
+        radial-gradient(circle at 88% 14%, rgba(111, 66, 255, 0.12), transparent 30%),
+        linear-gradient(180deg, #ffffff 0%, #fbfbfd 48%, #f7f4ff 100%);
       overflow-x: hidden;
     }
 
-    a { color: inherit; text-decoration: none; cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1180px, calc(100% - 44px)); margin: 0 auto; }
 
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 9999;
-      height: 82px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 clamp(22px, 6vw, 86px);
-      background: rgba(255, 255, 255, 0.72);
-      border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      font-size: 25px;
-      font-weight: 900;
-      letter-spacing: 0.23em;
-    }
-
-    .brand-mark {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #8154ff, #512fe4);
-      box-shadow: 0 14px 30px rgba(111, 66, 255, 0.28);
-      position: relative;
-    }
-
-    .brand-mark::after {
-      content: "";
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      top: 0;
-      right: 0;
-      background: #fff;
-      border-bottom-left-radius: 16px;
-    }
 
     .nav-links {
       display: flex;
@@ -96,39 +57,94 @@
       gap: clamp(18px, 3vw, 42px);
       font-size: 15px;
       font-weight: 750;
-      color: #22263a;
+      color: #252a3d;
     }
 
-    .nav-links a {
+    .nav-links > a,
+    .nav-dropdown > a,
+    .nav-dropdown-toggle {
+      padding: 30px 0;
       position: relative;
-      padding: 31px 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
       transition: color 180ms ease, transform 180ms ease;
     }
 
-    .nav-links a:hover { color: var(--primary); transform: translateY(-1px); }
-
-    .nav-links a.active::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 4px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, #8154ff, #512fe4);
-      box-shadow: 0 8px 22px rgba(111, 66, 255, 0.38);
+    .nav-links > a:hover,
+    .nav-dropdown:hover > a,
+    .nav-dropdown:hover > .nav-dropdown-toggle,
+    .nav-dropdown.is-open > a,
+    .nav-dropdown.is-open > .nav-dropdown-toggle {
+      color: var(--primary);
+      transform: translateY(-1px);
     }
 
-    .container { width: min(1180px, calc(100% - 44px)); margin: 0 auto; }
+    .nav-dropdown {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown.is-open .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translate(-50%, 0);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% - 8px);
+      left: 50%;
+      display: grid;
+      gap: 4px;
+      min-width: 220px;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 1px solid rgba(18, 20, 38, 0.08);
+      border-radius: 16px;
+      box-shadow: 0 22px 60px rgba(24, 18, 61, 0.14);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translate(-50%, 10px);
+      transition: opacity 180ms cubic-bezier(.2,.8,.2,1), visibility 180ms cubic-bezier(.2,.8,.2,1), transform 180ms cubic-bezier(.2,.8,.2,1);
+      z-index: 1000;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 12px 14px;
+      border-radius: 12px;
+      color: #252a3d;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.2;
+      white-space: nowrap;
+      transition: background-color 180ms cubic-bezier(.2,.8,.2,1), color 180ms cubic-bezier(.2,.8,.2,1), transform 180ms cubic-bezier(.2,.8,.2,1);
+    }
+
+    .dropdown-menu a:hover,
+    .dropdown-menu a:focus-visible {
+      background: rgba(111, 66, 255, 0.09);
+      color: var(--primary);
+      transform: translateX(2px);
+    }
 
     .hero {
       position: relative;
-      min-height: 720px;
+      min-height: 680px;
       display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
+      grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.88fr);
       align-items: center;
-      gap: 52px;
-      padding: 80px 0 68px;
+      gap: clamp(44px, 6vw, 76px);
+      padding: 92px 0 82px;
     }
 
     .hero::before {
@@ -152,25 +168,26 @@
       display: inline-flex;
       align-items: center;
       gap: 9px;
-      padding: 10px 18px;
+      padding: 10px 17px;
       border-radius: 999px;
       background: rgba(111, 66, 255, 0.10);
       border: 1px solid rgba(111, 66, 255, 0.18);
-      color: var(--primary-dark);
-      font-size: 13px;
+      color: #4f2bdc;
+      font-size: 12px;
       font-weight: 900;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      margin-bottom: 26px;
+      margin-bottom: 30px;
     }
 
     h1 {
-      max-width: 670px;
-      font-size: clamp(48px, 6vw, 82px);
-      line-height: 0.98;
-      letter-spacing: -0.065em;
+      max-width: 720px;
+      font-size: clamp(50px, 6.2vw, 84px);
+      line-height: 1.04;
+      letter-spacing: -0.045em;
       font-weight: 900;
-      margin-bottom: 28px;
+      margin-bottom: 30px;
+      text-wrap: balance;
     }
 
     h1 span {
@@ -181,18 +198,18 @@
     }
 
     .subtitle {
-      max-width: 590px;
+      max-width: 620px;
       font-size: clamp(18px, 2vw, 23px);
-      line-height: 1.55;
+      line-height: 1.62;
       color: #242a42;
-      margin-bottom: 32px;
+      margin-bottom: 34px;
     }
 
     .pill-row {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-bottom: 32px;
+      margin-bottom: 34px;
     }
 
     .pill {
@@ -203,14 +220,20 @@
       border-radius: 15px;
       background: rgba(255, 255, 255, 0.74);
       border: 1px solid var(--line);
-      box-shadow: var(--shadow-soft);
+      box-shadow: 0 12px 36px rgba(27, 19, 67, 0.065);
       font-size: 14px;
       font-weight: 800;
     }
 
     .pill svg { width: 20px; height: 20px; color: var(--primary); }
 
-    .actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 28px; }
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
 
     .primary-btn, .secondary-btn {
       display: inline-flex;
@@ -234,7 +257,7 @@
       color: #191d32;
       background: rgba(255, 255, 255, 0.76);
       border: 1px solid var(--line);
-      box-shadow: var(--shadow-soft);
+      box-shadow: 0 12px 36px rgba(27, 19, 67, 0.065);
     }
 
     .primary-btn:hover, .secondary-btn:hover { transform: translateY(-2px); }
@@ -243,159 +266,213 @@
       display: flex;
       align-items: center;
       gap: 9px;
-      color: var(--muted);
+      color: #5d6478;
       font-size: 15px;
-      font-weight: 600;
+      font-weight: 650;
     }
 
     .phone-stage {
       display: flex;
       justify-content: center;
       position: relative;
+      perspective: 1200px;
     }
 
     .phone-glow {
       position: absolute;
-      width: 340px;
-      height: 340px;
+      width: 310px;
+      height: 310px;
       border-radius: 50%;
       background: rgba(111, 66, 255, 0.18);
       filter: blur(70px);
-      top: 120px;
+      top: 112px;
       pointer-events: none;
     }
 
     .phone {
-      width: 326px;
-      height: 632px;
-      border-radius: 52px;
-      background: linear-gradient(135deg, #15151b, #020207);
-      padding: 14px;
-      box-shadow: 0 36px 90px rgba(8, 7, 18, 0.34);
+      width: min(332px, 100%);
+      aspect-ratio: 9 / 18.8;
+      border-radius: 44px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.28), rgba(255,255,255,0.04)),
+        linear-gradient(135deg, #16131f, #05040a 58%, #22155f);
+      padding: 11px;
+      box-shadow:
+        0 34px 86px rgba(8, 7, 18, 0.30),
+        0 16px 46px rgba(111, 66, 255, 0.18);
       position: relative;
+      transform: rotate(-2deg);
+      transition: transform 260ms cubic-bezier(.2,.8,.2,1), box-shadow 260ms cubic-bezier(.2,.8,.2,1);
+    }
+
+    .phone:hover {
+      transform: translateY(-7px) rotate(-1deg);
+      box-shadow:
+        0 42px 100px rgba(8, 7, 18, 0.34),
+        0 22px 58px rgba(111, 66, 255, 0.23);
     }
 
     .screen {
       height: 100%;
-      border-radius: 39px;
-      background:
-        radial-gradient(circle at 86% 12%, rgba(111,66,255,0.08), transparent 32%),
-        linear-gradient(180deg, #ffffff, #fbfaff);
-      padding: 46px 28px 24px;
+      border-radius: 34px;
+      background: #f8f5ff;
       position: relative;
       overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18);
     }
 
     .notch {
       position: absolute;
-      top: 0;
+      top: 10px;
       left: 50%;
       transform: translateX(-50%);
-      width: 128px;
-      height: 29px;
+      width: 106px;
+      height: 24px;
       background: #050509;
-      border-radius: 0 0 19px 19px;
+      border-radius: 999px;
+      z-index: 2;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.08);
     }
 
-    .status {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
+    .app-screenshot {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .section { padding: 78px 0; }
+
+    .feature-showcase {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 0.96fr);
+      align-items: center;
+      gap: clamp(36px, 5.5vw, 78px);
+      padding: clamp(54px, 7vw, 82px) clamp(28px, 5.5vw, 72px);
+      border: 1px solid rgba(111, 66, 255, 0.12);
+      border-radius: var(--radius-lg);
+      background:
+        radial-gradient(circle at 14% 12%, rgba(111, 66, 255, 0.13), transparent 34%),
+        linear-gradient(135deg, rgba(255,255,255,0.88), rgba(245,241,255,0.84));
+      box-shadow: 0 18px 58px rgba(27, 19, 67, 0.075);
+      overflow: hidden;
+    }
+
+    .feature-showcase::after {
+      content: "";
+      position: absolute;
+      right: -16%;
+      bottom: -34%;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      background: rgba(111, 66, 255, 0.10);
+      filter: blur(42px);
+      pointer-events: none;
+    }
+
+    .feature-copy,
+    .feature-media {
+      position: relative;
+      z-index: 1;
+    }
+
+    .feature-copy h2 {
+      max-width: 520px;
+      font-size: clamp(34px, 4vw, 58px);
+      line-height: 1.06;
+      letter-spacing: -0.04em;
       font-weight: 900;
-      margin-bottom: 18px;
+      margin-bottom: 24px;
+      text-wrap: balance;
     }
 
-    .app-title { text-align: center; font-size: 25px; font-weight: 900; margin-bottom: 28px; }
-    .hello { font-size: 20px; font-weight: 900; margin-bottom: 6px; }
-    .phone-sub { font-size: 12px; color: #52596b; margin-bottom: 22px; }
-
-    .progress-card {
-      width: 184px;
-      margin: 0 auto 22px;
-      padding: 16px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.86);
-      border: 1px solid rgba(18,20,38,0.06);
-      box-shadow: 0 16px 42px rgba(34, 22, 90, 0.10);
-      text-align: center;
+    .feature-copy p {
+      max-width: 500px;
+      color: #2c334a;
+      font-size: clamp(17px, 1.7vw, 20px);
+      line-height: 1.66;
+      font-weight: 560;
     }
 
-    .progress-title { font-size: 12px; font-weight: 900; margin-bottom: 10px; }
-
-    .ring {
-      width: 118px;
-      height: 118px;
-      margin: 0 auto 10px;
-      border-radius: 50%;
-      background: conic-gradient(var(--primary) 0 78%, #e8e2ff 78% 100%);
-      display: grid;
-      place-items: center;
+    .feature-media {
+      justify-self: center;
+      width: min(100%, 460px);
+      padding: 12px;
+      border-radius: 34px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.88), rgba(238,231,255,0.72)),
+        rgba(255,255,255,0.78);
+      border: 1px solid rgba(111, 66, 255, 0.12);
+      box-shadow: 0 28px 78px rgba(37, 24, 83, 0.16);
+      transition: transform 240ms cubic-bezier(.2,.8,.2,1), box-shadow 240ms cubic-bezier(.2,.8,.2,1);
     }
 
-    .ring-inner {
-      width: 78px;
-      height: 78px;
-      border-radius: 50%;
-      background: #fff;
-      display: grid;
-      place-items: center;
-      color: var(--primary);
-      font-size: 30px;
-      font-weight: 900;
+    .feature-media:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 36px 92px rgba(37, 24, 83, 0.20);
     }
 
-    .small { font-size: 10px; color: #71778a; font-weight: 600; }
-
-    .habits { display: grid; gap: 14px; }
-    .habit { display: flex; align-items: center; gap: 11px; font-size: 13px; font-weight: 850; }
-    .habit-dot, .check {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      flex: 0 0 auto;
-      color: #fff;
-      font-size: 11px;
+    .feature-media img {
+      width: 100%;
+      max-height: 560px;
+      display: block;
+      object-fit: contain;
+      border-radius: 24px;
+      background: #fbfaff;
     }
-    .habit-dot { background: var(--primary); }
-    .check { margin-left: auto; background: var(--green); }
-    .check.gray { background: #b9becb; }
 
-    .section { padding: 28px 0 34px; }
+    .product-hub-section {
+      padding-top: 50px;
+      padding-bottom: 104px;
+    }
+
+    .product-hub-panel {
+      padding: clamp(34px, 5vw, 54px);
+      border: 1px solid rgba(111, 66, 255, 0.10);
+      border-radius: var(--radius-lg);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.88), rgba(250,248,255,0.82)),
+        rgba(255,255,255,0.78);
+      box-shadow: 0 20px 62px rgba(27, 19, 67, 0.07);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
 
     .section-head {
       display: flex;
       justify-content: space-between;
       align-items: end;
-      gap: 24px;
-      margin-bottom: 24px;
+      gap: 28px;
+      margin-bottom: 30px;
     }
 
-    .section-head h2 { font-size: clamp(32px, 3.8vw, 52px); letter-spacing: -0.045em; line-height: 1.04; }
-    .section-head p { max-width: 455px; color: var(--muted); font-size: 16px; line-height: 1.55; font-weight: 550; }
+    .section-head h2 { font-size: clamp(32px, 3.8vw, 52px); letter-spacing: -0.04em; line-height: 1.08; }
+    .section-head p { max-width: 500px; color: var(--muted); font-size: 16.5px; line-height: 1.62; font-weight: 550; }
 
-    .cards, .info-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-    }
+    .cards, .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 
     .card, .list-card, .contact-box {
       background: rgba(255,255,255,0.78);
       border: 1px solid var(--line);
       border-radius: var(--radius-md);
-      box-shadow: var(--shadow-soft);
+      box-shadow: 0 12px 36px rgba(27, 19, 67, 0.065);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
     }
 
     .card {
-      padding: 28px;
-      min-height: 206px;
-      transition: transform 180ms ease, box-shadow 180ms ease;
+      padding: 30px;
+      min-height: 212px;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
     }
-    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(111, 66, 255, 0.16);
+      box-shadow: 0 24px 80px rgba(27, 19, 67, 0.10);
+    }
 
     .card-title, .list-title {
       display: flex;
@@ -419,12 +496,7 @@
 
     .icon-circle svg { width: 24px; height: 24px; }
 
-    .card p, .contact-box p {
-      color: #2c334a;
-      font-size: 15.5px;
-      line-height: 1.55;
-      font-weight: 530;
-    }
+    .card p, .contact-box p { color: #2c334a; font-size: 15.5px; line-height: 1.55; font-weight: 530; }
 
     .info-grid { margin-top: 22px; }
     .list-card { padding: 28px; min-height: 304px; }
@@ -458,6 +530,98 @@
     .note.blue { background: #edf4ff; color: #225393; }
     .note.purple { background: #f2edff; color: #5b36c9; }
 
+    .privacy-content {
+      max-width: 840px;
+      margin: 0 auto;
+      line-height: 1.75;
+      font-size: 17px;
+      color: #22263a;
+    }
+
+    .privacy-content h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 48px 0 24px 0;
+    }
+
+    .privacy-content p {
+      margin-bottom: 16px;
+      font-size: 16px;
+    }
+
+    .privacy-content ul {
+      margin-bottom: 16px;
+      padding-left: 24px;
+    }
+
+    .privacy-content li { margin-bottom: 10px; }
+
+    .version-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100%;
+    }
+
+    .version-label {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .version-select {
+      min-width: 220px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 600;
+      outline: none;
+      appearance: none;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(16, 22, 71, 0.06);
+    }
+
+    .meta-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    .meta-group span { display: inline-block; }
+
+    .faq {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--line);
+      padding: 32px 0;
+    }
+
+    .faq-item:last-child { border-bottom: none; }
+
+    .faq-question {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+
+    .faq-answer {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
     .contact-box {
       margin-top: 22px;
       padding: 28px;
@@ -465,6 +629,12 @@
       align-items: center;
       justify-content: space-between;
       gap: 22px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.78);
+      border: 1px solid var(--line);
+      box-shadow: 0 12px 36px rgba(27, 19, 67, 0.065);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
     }
 
     .contact-left { display: flex; align-items: center; gap: 18px; }
@@ -484,29 +654,8 @@
       color: var(--primary-dark);
       font-size: 15px;
       font-weight: 900;
-      box-shadow: var(--shadow-soft);
+      box-shadow: 0 12px 36px rgba(27, 19, 67, 0.065);
     }
-
-    .footer {
-      margin-top: 42px;
-      border-top: 1px solid var(--line);
-      background: rgba(255,255,255,0.7);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      padding: 30px 0 18px;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1.55fr 0.75fr 0.75fr 0.75fr 1.45fr;
-      gap: 38px;
-      align-items: start;
-    }
-
-    .footer-brand { display: flex; align-items: center; gap: 12px; font-size: 23px; font-weight: 900; letter-spacing: 0.23em; margin-bottom: 14px; }
-    .footer p, .footer a { color: var(--muted); font-size: 13.5px; line-height: 1.72; font-weight: 560; }
-    .footer h4 { font-size: 13.5px; margin-bottom: 12px; }
-    .footer a:hover { color: var(--primary); }
 
     .developer-card {
       border: 1px solid var(--line);
@@ -520,63 +669,74 @@
       font-weight: 700;
     }
 
-    .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      margin-top: 24px;
-      color: var(--muted);
-      font-size: 12.8px;
-      font-weight: 560;
-    }
-
-    @media (max-width: 980px) {
-      .navbar { height: auto; padding-top: 18px; padding-bottom: 14px; flex-direction: column; gap: 14px; }
+    @media (max-width: 768px) {
       .nav-links { flex-wrap: wrap; justify-content: center; }
-      .nav-links a { padding: 12px 0; }
-      .nav-links a.active::after { bottom: -2px; }
-      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 54px; }
+      .nav-links > a,
+      .nav-dropdown-toggle { padding: 12px 0; }
+      .nav-links .dropdown-menu a { padding: 12px 20px; }
+      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 62px; padding-bottom: 64px; }
       .phone-stage { justify-content: flex-start; }
+      .feature-showcase { grid-template-columns: 1fr; padding: 54px 30px; }
+      .feature-media { justify-self: start; width: min(100%, 430px); }
+      .product-hub-section { padding-top: 38px; padding-bottom: 82px; }
       .cards, .info-grid { grid-template-columns: repeat(2, 1fr); }
-      .footer-grid { grid-template-columns: repeat(2, 1fr); }
       .section-head { align-items: flex-start; flex-direction: column; }
     }
 
     @media (max-width: 640px) {
-      .brand { font-size: 20px; }
-      .brand-mark { width: 34px; height: 34px; }
-      .hero { gap: 38px; }
-      .phone { width: 286px; height: 556px; }
-      .screen { padding-left: 23px; padding-right: 23px; }
-      .cards, .info-grid, .footer-grid { grid-template-columns: 1fr; }
+      .hero { gap: 42px; padding-top: 52px; }
+      h1 { font-size: clamp(44px, 13vw, 58px); line-height: 1.06; letter-spacing: -0.035em; }
+      .subtitle { font-size: 18px; }
+      .phone { width: min(278px, 100%); border-radius: 40px; padding: 10px; }
+      .screen { border-radius: 30px; }
+      .section { padding: 58px 0; }
+      .feature-showcase { padding: 42px 20px; border-radius: 28px; }
+      .feature-media { border-radius: 28px; padding: 10px; }
+      .feature-media img { border-radius: 20px; }
+      .product-hub-panel { padding: 28px 18px; border-radius: 28px; }
+      .cards, .info-grid { grid-template-columns: 1fr; }
       .contact-box { flex-direction: column; align-items: stretch; }
       .email-btn { min-width: 100%; }
-      .footer-bottom { flex-direction: column; }
     }
   </style>
 </head>
 
 <body>
   <header class="navbar">
-    <a href="#home" class="brand" aria-label="Latenora Home">
-      <span class="brand-mark"></span>
-      LATENORA
+    <a href="index.html" class="brand" aria-label="Latenora home">
+      <img
+        src="assets/images/global/latenora-footer-navbar.png"
+        alt="Latenora"
+        class="navbar-brand-image"
+      />
     </a>
 
     <nav class="nav-links" aria-label="Main navigation">
-      <a href="#home">Home</a>
-      <a href="#home" class="active">HabitSight</a>
-      <a href="#privacy">Privacy Policy</a>
-      <a href="terms.html">Terms of Service</a>
-      <a href="#contact">Contact</a>
+      <a href="index.html">Home</a>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true">Products</button>
+        <div class="dropdown-menu" role="menu">
+          <a href="habitsight.html" role="menuitem">HabitSight</a>
+        </div>
+      </div>
+      <a href="contact.html">Contact</a>
     </nav>
   </header>
+
+  <nav class="product-nav" aria-label="HabitSight product navigation">
+    <a href="habitsight.html" class="product-nav-link active" aria-current="page">Overview</a>
+    <a href="app-details.html" class="product-nav-link">App Details</a>
+    <a href="privacy.html" class="product-nav-link">Privacy Policy</a>
+    <a href="instructions.html" class="product-nav-link">Working Instructions</a>
+    <a href="faq.html" class="product-nav-link">FAQ</a>
+    <a href="support.html" class="product-nav-link">Support</a>
+  </nav>
 
   <main>
     <section id="home" class="hero container">
       <div class="hero-copy">
-        <div class="eyebrow">Privacy first. Always.</div>
-        <h1>Your privacy is<br>our <span>priority</span></h1>
+        <div class="eyebrow">PRIVACY FIRST. ALWAYS.</div>
+        <h1>Your privacy is<br><span>our priority.</span></h1>
         <p class="subtitle">All your data stays on your device. No ads. No tracking. No account required.</p>
 
         <div class="pill-row">
@@ -595,11 +755,11 @@
         </div>
 
         <div class="actions">
-          <a href="#privacy" class="primary-btn">Read Full Privacy Policy <span>›</span></a>
-          <a href="#contact" class="secondary-btn">Contact Support</a>
+          <a href="app-details.html" class="primary-btn">App Details</a>
+          <a href="faq.html" class="secondary-btn">FAQ</a>
         </div>
 
-        <p class="made">Built with privacy-first principles. Designed in Sweden. 🇸🇪</p>
+        <p class="made">Built with privacy-conscious principles.</p>
       </div>
 
       <div class="hero-visual">
@@ -608,152 +768,124 @@
           <div class="phone" aria-label="HabitSight app preview">
             <div class="screen">
               <div class="notch"></div>
-              <div class="status"><span>9:41</span><span>⌁ ▱</span></div>
-              <div class="app-title">HabitSight</div>
-              <div class="hello">Hello, Alex</div>
-              <div class="phone-sub">Stay on track with your habits!</div>
-
-              <div class="progress-card">
-                <div class="progress-title">Daily Progress</div>
-                <div class="ring"><div class="ring-inner">78%</div></div>
-                <div class="small">7 of 9 habits complete</div>
-              </div>
-
-              <div class="habits">
-                <div class="habit"><span class="habit-dot">✹</span> Morning Exercise <span class="check">✓</span></div>
-                <div class="habit"><span class="habit-dot">■</span> Read a Book <span class="check">✓</span></div>
-                <div class="habit"><span class="habit-dot">◆</span> Drink Water <span class="check">✓</span></div>
-                <div class="habit"><span class="habit-dot">♟</span> Meditate <span class="check gray">✓</span></div>
-              </div>
+              <img
+                src="assets/images/habitsight/habitsight-dashboard-overview.png"
+                alt="HabitSight dashboard overview showing privacy-first digital habit insights"
+                class="app-screenshot"
+                loading="eager"
+                decoding="async"
+              />
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="privacy" class="section container">
-      <div class="section-head">
-        <h2>Private by design.<br>Clear by default.</h2>
-        <p>HabitSight is built around a simple promise: your app usage insights should help you, without following you.</p>
-      </div>
-
-      <div class="cards">
-        <article class="card">
-          <div class="card-title"><span class="icon-circle"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5Zm0 2c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5Z"/></svg></span>1. Information We Collect</div>
-          <p>We do not collect personal data that directly identifies you. Usage data is processed locally on your device.</p>
-        </article>
-
-        <article class="card">
-          <div class="card-title"><span class="icon-circle"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11 2a10 10 0 1 0 10 10h-8V4a10.1 10.1 0 0 0-2-.2Z"/><path d="M15 3.5V10h6.5A8.04 8.04 0 0 0 15 3.5Z"/></svg></span>2. How We Use Data</div>
-          <p>Data is used only within the app to generate insights. No tracking, profiling, or advertising.</p>
-        </article>
-
-        <article class="card">
-          <div class="card-title"><span class="icon-circle"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C7.03 3 3 4.57 3 6.5S7.03 10 12 10s9-1.57 9-3.5S16.97 3 12 3Zm9 6.1c-1.63 1.44-5.06 2.4-9 2.4s-7.37-.96-9-2.4V12c0 1.93 4.03 3.5 9 3.5s9-1.57 9-3.5V9.1Zm0 5.5c-1.63 1.44-5.06 2.4-9 2.4s-7.37-.96-9-2.4v2.9C3 19.43 7.03 21 12 21s9-1.57 9-3.5v-2.9Z"/></svg></span>3. Data Storage</div>
-          <p>All data remains stored locally on your device. No cloud storage or external servers.</p>
-        </article>
-
-        <article class="card">
-          <div class="card-title"><span class="icon-circle"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 11H17V7.5A1.5 1.5 0 0 0 15.5 6H12V2.5A1.5 1.5 0 0 0 10.5 1h-4A1.5 1.5 0 0 0 5 2.5V6H1.5A1.5 1.5 0 0 0 0 7.5v4A1.5 1.5 0 0 0 1.5 13H5v3.5A1.5 1.5 0 0 0 6.5 18h4a1.5 1.5 0 0 0 1.5-1.5V13h3.5a1.5 1.5 0 0 0 1.5-1.5Z" transform="translate(3 2)"/></svg></span>4. Third-Party Services</div>
-          <p>No third-party tracking or advertising services are used. Essential platform services may be used for app functionality.</p>
-        </article>
-
-        <article class="card">
-          <div class="card-title"><span class="icon-circle"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Zm-1-7.2-3-3 1.4-1.4 1.6 1.6 3.8-3.8 1.4 1.4Z"/></svg></span>5. Permissions We Use</div>
-          <p>HabitSight requires Usage Access permission to analyze app usage patterns. This is processed entirely on your device.</p>
-        </article>
-
-        <article class="card">
-          <div class="card-title"><span class="icon-circle"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm-7 9a7 7 0 0 1 14 0Z"/></svg></span>6. Children's Privacy</div>
-          <p>HabitSight is not directed at children under 13 and does not knowingly collect personal data from children.</p>
-        </article>
-      </div>
-
-      <div class="info-grid">
-        <article class="list-card">
-          <div class="list-title"><span class="icon-circle" style="color:#4fbe86;background:#eaf8ef"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Your Privacy Rights</div>
-          <ul class="checks">
-            <li><span class="tick">✓</span>Right to access your data</li>
-            <li><span class="tick">✓</span>Right to request deletion</li>
-            <li><span class="tick">✓</span>Right to restrict processing</li>
-            <li><span class="tick">✓</span>Contact us for privacy requests</li>
-          </ul>
-          <div class="note">Because all data is stored locally on your device, you have full control over your information at all times.</div>
-        </article>
-
-        <article class="list-card">
-          <div class="list-title"><span class="icon-circle" style="color:#2f7df1;background:#edf4ff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>Data Safety</div>
-          <ul class="checks">
-            <li><span class="tick blue">✓</span>We do not collect personal data that identifies you.</li>
-            <li><span class="tick blue">✓</span>No data sharing with third parties.</li>
-            <li><span class="tick blue">✓</span>No advertising tracking.</li>
-            <li><span class="tick blue">✓</span>On-device processing only.</li>
-          </ul>
-          <div class="note blue">HabitSight is designed to keep your data private, secure, and under your control.</div>
-        </article>
-
-        <article class="list-card">
-          <div class="list-title"><span class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>How HabitSight Protects You</div>
-          <ul class="checks">
-            <li><span class="tick purple">✓</span>100% on-device data processing</li>
-            <li><span class="tick purple">✓</span>No account required</li>
-            <li><span class="tick purple">✓</span>No cloud sync</li>
-            <li><span class="tick purple">✓</span>No behavioral profiling</li>
-            <li><span class="tick purple">✓</span>No ads or tracking</li>
-          </ul>
-          <div class="note purple">Your privacy is built into every part of HabitSight.</div>
-        </article>
-      </div>
-
-      <section id="contact" class="contact-box">
-        <div class="contact-left">
-          <span class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
-          <div>
-            <h2>Get in Touch</h2>
-            <p>For support or privacy-related requests, contact us.</p>
-          </div>
+    <section class="section container" aria-labelledby="digital-routines-title">
+      <div class="feature-showcase">
+        <div class="feature-copy">
+          <h2 id="digital-routines-title">Build healthier digital routines.</h2>
+          <p>Track usage patterns, discover insights, and stay focused with privacy-conscious digital wellness tools.</p>
         </div>
-        <a class="email-btn" href="mailto:support@latenora.com">support@latenora.com <span>›</span></a>
-      </section>
+
+        <div class="feature-media">
+          <img
+            src="assets/images/habitsight/habitsight-focus-insights.png"
+            alt="HabitSight focus insights screen showing digital wellness patterns"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="section product-hub-section container">
+      <div class="product-hub-panel">
+        <div class="section-head">
+          <h2>HabitSight Product Hub</h2>
+          <p>Explore product details, privacy policy, working instructions, FAQ, and support resources.</p>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <div class="card-title">App Details</div>
+            <p>Learn about HabitSight's design, features, and compatibility.</p>
+            <a href="app-details.html" class="nav-cta">App Details</a>
+          </article>
+
+          <article class="card">
+            <div class="card-title">Privacy Policy</div>
+            <p>Read the HabitSight privacy policy that explains data use and local processing.</p>
+            <a href="privacy.html" class="nav-cta">Privacy Policy</a>
+          </article>
+
+          <article class="card">
+            <div class="card-title">Working Instructions</div>
+            <p>Get started quickly with step-by-step setup and permission guidance.</p>
+            <a href="instructions.html" class="nav-cta">Working Instructions</a>
+          </article>
+
+          <article class="card">
+            <div class="card-title">FAQ</div>
+            <p>Find answers to common HabitSight questions and product details.</p>
+            <a href="faq.html" class="nav-cta">FAQ</a>
+          </article>
+
+          <article class="card">
+            <div class="card-title">Support</div>
+            <p>Contact the team for product support, feedback, or technical questions.</p>
+            <a href="support.html" class="nav-cta">Support</a>
+          </article>
+        </div>
+      </div>
     </section>
   </main>
 
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
-        <div>
-          <div class="footer-brand"><span class="brand-mark"></span>LATENORA</div>
-          <p>Building privacy-first apps that help you live a balanced digital life.</p>
+        <div class="footer-brand-block">
+          <img
+            src="assets/images/global/latenora-footer-brand.png"
+            alt="Latenora"
+            class="footer-brand-image"
+          />
         </div>
-        <div>
-          <h4>Product</h4>
-          <a href="#home">HabitSight</a>
-          <a href="#privacy">Features</a>
-          <a href="#privacy">Updates</a>
-        </div>
+
         <div>
           <h4>Company</h4>
-          <a href="about.html">About Us</a>
-          <a href="#contact">Contact</a>
-          <a href="#contact">Support</a>
+          <a href="index.html">Home</a>
+          <a href="index.html#about-latenora">About</a>
+          <a href="contact.html">Contact</a>
         </div>
+
+        <div>
+          <h4>Products</h4>
+          <a href="habitsight.html">HabitSight</a>
+          <a href="app-details.html">App Details</a>
+          <a href="instructions.html">Working Instructions</a>
+          <a href="faq.html">FAQ</a>
+          <a href="support.html">Support</a>
+        </div>
+
         <div>
           <h4>Legal</h4>
-          <a href="#privacy">Privacy Policy</a>
+          <a href="privacy.html">HabitSight Privacy Policy</a>
           <a href="terms.html">Terms of Service</a>
-          <a href="#privacy">Data Safety</a>
         </div>
-        <div class="developer-card">
-          <div>Developer: Adaikkappan Muthu</div>
-          <div>Location: Sweden 🇸🇪</div>
-          <div>Contact: support@latenora.com</div>
+
+        <div>
+          <h4>Contact</h4>
+          <a href="mailto:support@latenora.com">support@latenora.com</a>
         </div>
       </div>
+
       <div class="footer-bottom">
-        <div>Effective Date: January 2026 | Last Updated: January 2026</div>
-        <div>© 2026 Latenora. All rights reserved.</div>
+        <div>&copy; 2026 Latenora. All rights reserved.</div>
       </div>
     </div>
   </footer>
+
+  <script src="assets/js/main.js"></script>
 </body>
 </html>

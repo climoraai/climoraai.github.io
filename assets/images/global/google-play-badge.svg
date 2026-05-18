@@ -1,0 +1,21 @@
+<svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <linearGradient id="playGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1f1f1f;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0a0a0a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background with rounded corners -->
+  <rect x="0" y="0" width="200" height="60" rx="8" ry="8" fill="url(#playGradient)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  
+  <!-- Google Play Icon -->
+  <path d="M20 15L32 27.5L20 40V15" fill="#4285F4" opacity="0.9"/>
+  <path d="M20 15L32 27.5L44 15V40L32 27.5L20 40Z" fill="#34A853" opacity="0.9"/>
+  <path d="M44 15L32 27.5L44 40V15" fill="#FBBC04" opacity="0.9"/>
+  <path d="M32 27.5L44 15L44 40Z" fill="#EA4335" opacity="0.9"/>
+  
+  <!-- Text -->
+  <text x="58" y="22" font-family="Arial, sans-serif" font-size="10" font-weight="600" fill="#ffffff" opacity="0.7">Get it on</text>
+  <text x="58" y="36" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#ffffff">Google Play</text>
+</svg>
