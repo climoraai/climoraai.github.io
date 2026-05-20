@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HabitSight | Privacy-conscious digital insight</title>
+  <meta name="description" content="HabitSight by Latenora helps you understand your digital habits with privacy-driven, on-device insights. No ads, no tracking, no account." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+
+  <style>
+    :root {
+      --bg: #fbfbfd;
+      --surface: rgba(255, 255, 255, 0.78);
+      --surface-solid: #ffffff;
+      --text: #07081f;
+      --muted: #5d6478;
+      --line: rgba(18, 20, 38, 0.09);
+      --primary: #6f42ff;
+      --primary-dark: #4f2bdc;
+      --primary-soft: #efeaff;
+      --green: #4fbe86;
+      --shadow: 0 24px 80px rgba(27, 19, 67, 0.10);
+      --shadow-soft: 0 12px 36px rgba(27, 19, 67, 0.065);
+      --radius-lg: 32px;
+      --radius-md: 22px;
+      --radius-sm: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(111, 66, 255, 0.10), transparent 26%),
+        radial-gradient(circle at 88% 14%, rgba(111, 66, 255, 0.12), transparent 30%),
+        linear-gradient(180deg, #ffffff 0%, #fbfbfd 48%, #f7f4ff 100%);
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1180px, calc(100% - 44px)); margin: 0 auto; }
+
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: clamp(18px, 3vw, 42px);
+      font-size: 15px;
+      font-weight: 750;
+      color: #252a3d;
+    }
+
+    .nav-links > a,
+    .nav-dropdown > a,
+    .nav-dropdown-toggle {
+      padding: 30px 0;
+      position: relative;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+      transition: color 180ms ease, transform 180ms ease;
+    }
+
+    .nav-links > a:hover,
+    .nav-dropdown:hover > a,
+    .nav-dropdown:hover > .nav-dropdown-toggle,
+    .nav-dropdown.is-open > a,
+    .nav-dropdown.is-open > .nav-dropdown-toggle {
+      color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .nav-dropdown {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown.is-open .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translate(-50%, 0);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% - 8px);
+      left: 50%;
+      display: grid;
+      gap: 4px;
+      min-width: 220px;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 1px solid rgba(18, 20, 38, 0.08);
+      border-radius: 16px;
+      box-shadow: 0 22px 60px rgba(24, 18, 61, 0.14);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translate(-50%, 10px);
+      transition: opacity 180ms cubic-bezier(.2,.8,.2,1), visibility 180ms cubic-bezier(.2,.8,.2,1), transform 180ms cubic-bezier(.2,.8,.2,1);
+      z-index: 1000;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 12px 14px;
+      border-radius: 12px;
+      color: #252a3d;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.2;
+      white-space: nowrap;
+      transition: background-color 180ms cubic-bezier(.2,.8,.2,1), color 180ms cubic-bezier(.2,.8,.2,1), transform 180ms cubic-bezier(.2,.8,.2,1);
+    }
+
+    .dropdown-menu a:hover,
+    .dropdown-menu a:focus-visible {
+      background: rgba(111, 66, 255, 0.09);
+      color: var(--primary);
+      transform: translateX(2px);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 680px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.88fr);
+      align-items: center;
+      gap: clamp(44px, 6vw, 76px);
+      padding: 92px 0 82px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      right: -18%;
+      top: 18%;
+      width: 760px;
+      height: 330px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent 0%, rgba(111, 66, 255, 0.08) 22%, rgba(111, 66, 255, 0.24) 54%, transparent 100%);
+      transform: rotate(-12deg);
+      filter: blur(1px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-copy, .hero-visual { position: relative; z-index: 2; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 17px;
+      border-radius: 999px;
+      background: rgba(111, 66, 255, 0.10);
+      border: 1px solid rgba(111, 66, 255, 0.18);
+      color: #4f2bdc;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      max-width: 720px;
+      font-size: clamp(50px, 6.2vw, 84px);
+      line-height: 1.04;
+      letter-spacing: -0.045em;
+      font-weight: 900;
+      margin-bottom: 30px;
+      text-wrap: balance;
+    }
+
+    h1 span {
+      background: linear-gradient(135deg, #7f52ff, #4e2be3);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      max-width: 620px;
+      font-size: clamp(18px, 2vw, 23px);
+      line-height: 1.62;
+      color: #242a42;
+      margin-bottom: 34px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 34px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 16px;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid var(--line);
+      box-shadow: 0 12px 36px rgba(27, 19, 67, 0.065);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .pill svg { width: 20px; height: 20px; color: var(--primary); }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .primary-btn, .secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 54px;
+      padding: 0 22px;
+      border-radius: 16px;
+      font-size: 15px;
+      font-weight: 850;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    }
+
+    .primary-btn {
+      color: #fff;
+      background: linear-gradient(135deg, #8052ff, #512fe4);
+      box-shadow: 0 20px 48px rgba(111, 66, 255, 0.26);
+    }
+
+    .secondary-btn {
+      color: #191d32;
+      background: rgba(255, 255, 255, 0.76);
+      border: 1px solid var(--line);
+      box-shadow: 0 12px 36px rgba(27, 19, 67, 0.065);
+    }
+
+    .primary-btn:hover, .secondary-btn:hover { transform: translateY(-2px); }
+
+    .made {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: #5d6478;
+      font-size: 15px;
+      font-weight: 650;
+    }
+
+    .phone-stage {
+      display: flex;
+      justify-content: center;
+      position: relative;
+      perspective: 1200px;
+    }
+
+    .phone-glow {
+      position: absolute;
+      width: 310px;
+      height: 310px;
+      border-radius: 50%;
+      background: rgba(111, 66, 255, 0.18);
+      filter: blur(70px);
+      top: 112px;
+      pointer-events: none;
+    }
+
+    .phone {
+      width: min(332px, 100%);
+      aspect-ratio: 9 / 18.8;
+      border-radius: 44px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.28), rgba(255,255,255,0.04)),
+        linear-gradient(135deg, #16131f, #05040a 58%, #22155f);
+      padding: 11px;
+      box-shadow:
+        0 34px 86px rgba(8, 7, 18, 0.30),
+        0 16px 46px rgba(111, 66, 255, 0.18);
+      position: relative;
+      transform: rotate(-2deg);
+      transition: transform 260ms cubic-bezier(.2,.8,.2,1), box-shadow 260ms cubic-bezier(.2,.8,.2,1);
+    }
+
+    .phone:hover {
+      transform: translateY(-7px) rotate(-1deg);
+      box-shadow:
+        0 42px 100px rgba(8, 7, 18, 0.34),
+        0 22px 58px rgba(111, 66, 255, 0.23);
+    }
+
+    .screen {
+      height: 100%;
+      border-radius: 34px;
+      background: #f8f5ff;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18);
+    }
+
+    .notch {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 106px;
+      height: 24px;
+      background: #050509;
+      border-radius: 999px;
+      z-index: 2;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.08);
+    }
+
+    .app-screenshot {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .section { padding: 78px 0; }
+
+    .feature-showcase {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 0.96fr);
+      align-items: center;
+      gap: clamp(36px, 5.5vw, 78px);
+      padding: clamp(54px, 7vw, 82px) clamp(28px, 5.5vw, 72px);
+      border: 1px solid rgba(111, 66, 255, 0.12);
+      border-radius: var(--radius-lg);
+      background:
+        radial-gradient(circle at 14% 12%, rgba(111, 66, 255, 0.13), transparent 34%),
+        linear-gradient(135deg, rgba(255,255,255,0.88), rgba(245,241,255,0.84));
+      box-shadow: 0 18px 58px rgba(27, 19, 67, 0.075);
+      overflow: hidden;
+    }
+
+    .feature-showcase::after {
+      content: "";
+      position: absolute;
+      right: -16%;
+      bottom: -34%;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      background: rgba(111, 66, 255, 0.10);
+      filter: blur(42px);
+      pointer-events: none;
+    }
+
+    .feature-copy,
+    .feature-media {
+      position: relative;
+      z-index: 1;
+    }
+
+    .feature-copy h2 {
+      max-width: 520px;
+      font-size: clamp(34px, 4vw, 58px);
+      line-height: 1.06;
+      letter-spacing: -0.04em;
+      font-weight: 900;
+      margin-bottom: 24px;
+      text-wrap: balance;
+    }
+
+    .feature-copy p {
+      max-width: 500px;
+      color: #2c334a;
+      font-size: clamp(17px, 1.7vw, 20px);
+      line-height: 1.66;
+      font-weight: 560;
+    }
+
+    .feature-media {
+      justify-self: center;
+      width: min(100%, 460px);
+      padding: 12px;
+      border-radius: 34px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.88), rgba(238,231,255,0.72)),
+        rgba(255,255,255,0.78);
+      border: 1px solid rgba(111, 66, 255, 0.12);
+      box-shadow: 0 28px 78px rgba(37, 24, 83, 0.16);
+      transition: transform 240ms cubic-bezier(.2,.8,.2,1), box-shadow 240ms cubic-bezier(.2,.8,.2,1);
+    }
+
+    .feature-media:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 36px 92px rgba(37, 24, 83, 0.20);
+    }
+
+    .feature-media img {
+      width: 100%;
+      max-height: 560px;
+      display: block;
+      object-fit: contain;
+      border-radius: 24px;
+      background: #fbfaff;
+    }
+
+    .product-hub-section {
+      padding-top: 50px;
+      padding-bottom: 104px;
+    }
+
+    .product-hub-panel {
+      padding: clamp(34px, 5vw, 54px);
+      border: 1px solid rgba(111, 66, 255, 0.10);
+      border-radius: var(--radius-lg);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.88), rgba(250,248,255,0.82)),
+        rgba(255,255,255,0.78);
+      box-shadow: 0 20px 62px rgba(27, 19, 67, 0.07);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 28px;
+      margin-bottom: 30px;
+    }
+
+    .section-head h2 { font-size: clamp(32px, 3.8vw, 52px); letter-spacing: -0.04em; line-height: 1.08; }
+    .section-head p { max-width: 500px; color: var(--muted); font-size: 16.5px; line-height: 1.62; font-weight: 550; }
+
+    .cards, .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+
+    .card, .list-card, .contact-box {
+      background: rgba(255,255,255,0.78);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      box-shadow: 0 12px 36px rgba(27, 19, 67, 0.065);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .card {
+      padding: 30px;
+      min-height: 212px;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(111, 66, 255, 0.16);
+      box-shadow: 0 24px 80px rgba(27, 19, 67, 0.10);
+    }
+
+    .card-title, .list-title {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-size: 18px;
+      font-weight: 900;
+      margin-bottom: 20px;
+    }
+
+    .icon-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--primary-soft);
+      color: var(--primary);
+      flex: 0 0 auto;
+    }
+
+    .icon-circle svg { width: 24px; height: 24px; }
+
+    .card p, .contact-box p { color: #2c334a; font-size: 15.5px; line-height: 1.55; font-weight: 530; }
+
+    .info-grid { margin-top: 22px; }
+    .list-card { padding: 28px; min-height: 304px; }
+
+    .checks { list-style: none; display: grid; gap: 12px; margin-bottom: 22px; }
+    .checks li { display: flex; align-items: flex-start; gap: 10px; color: #2c334a; font-size: 14.5px; line-height: 1.35; font-weight: 560; }
+
+    .tick {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--green);
+      color: white;
+      font-size: 11px;
+      flex: 0 0 auto;
+    }
+    .tick.blue { background: #6aa5ff; }
+    .tick.purple { background: #b08cff; }
+
+    .note {
+      padding: 16px;
+      border-radius: 14px;
+      background: #eaf8ef;
+      color: #284d3b;
+      font-size: 13.5px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+    .note.blue { background: #edf4ff; color: #225393; }
+    .note.purple { background: #f2edff; color: #5b36c9; }
+
+    .privacy-content {
+      max-width: 840px;
+      margin: 0 auto;
+      line-height: 1.75;
+      font-size: 17px;
+      color: #22263a;
+    }
+
+    .privacy-content h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 48px 0 24px 0;
+    }
+
+    .privacy-content p {
+      margin-bottom: 16px;
+      font-size: 16px;
+    }
+
+    .privacy-content ul {
+      margin-bottom: 16px;
+      padding-left: 24px;
+    }
+
+    .privacy-content li { margin-bottom: 10px; }
+
+    .version-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100%;
+    }
+
+    .version-label {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .version-select {
+      min-width: 220px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 600;
+      outline: none;
+      appearance: none;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(16, 22, 71, 0.06);
+    }
+
+    .meta-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    .meta-group span { display: inline-block; }
+
+    .faq {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--line);
+      padding: 32px 0;
+    }
+
+    .faq-item:last-child { border-bottom: none; }
+
+    .faq-question {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+
+    .faq-answer {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .contact-box {
+      margin-top: 22px;
+      padding: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.78);
+      border: 1px solid var(--line);
+      box-shadow: 0 12px 36px rgba(27, 19, 67, 0.065);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .contact-left { display: flex; align-items: center; gap: 18px; }
+    .contact-left h2 { font-size: 25px; letter-spacing: -0.025em; margin-bottom: 6px; }
+
+    .email-btn {
+      min-width: 288px;
+      min-height: 52px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      padding: 0 18px;
+      background: rgba(255,255,255,0.82);
+      color: var(--primary-dark);
+      font-size: 15px;
+      font-weight: 900;
+      box-shadow: 0 12px 36px rgba(27, 19, 67, 0.065);
+    }
+
+    .developer-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 17px;
+      background: rgba(255,255,255,0.66);
+      display: grid;
+      gap: 12px;
+      color: #343b51;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { flex-wrap: wrap; justify-content: center; }
+      .nav-links > a,
+      .nav-dropdown-toggle { padding: 12px 0; }
+      .nav-links .dropdown-menu a { padding: 12px 20px; }
+      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 62px; padding-bottom: 64px; }
+      .phone-stage { justify-content: flex-start; }
+      .feature-showcase { grid-template-columns: 1fr; padding: 54px 30px; }
+      .feature-media { justify-self: start; width: min(100%, 430px); }
+      .product-hub-section { padding-top: 38px; padding-bottom: 82px; }
+      .cards, .info-grid { grid-template-columns: repeat(2, 1fr); }
+      .section-head { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (max-width: 640px) {
+      .hero { gap: 42px; padding-top: 52px; }
+      h1 { font-size: clamp(44px, 13vw, 58px); line-height: 1.06; letter-spacing: -0.035em; }
+      .subtitle { font-size: 18px; }
+      .phone { width: min(278px, 100%); border-radius: 40px; padding: 10px; }
+      .screen { border-radius: 30px; }
+      .section { padding: 58px 0; }
+      .feature-showcase { padding: 42px 20px; border-radius: 28px; }
+      .feature-media { border-radius: 28px; padding: 10px; }
+      .feature-media img { border-radius: 20px; }
+      .product-hub-panel { padding: 28px 18px; border-radius: 28px; }
+      .cards, .info-grid { grid-template-columns: 1fr; }
+      .contact-box { flex-direction: column; align-items: stretch; }
+      .email-btn { min-width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="navbar">
+    <a href="index.html" class="brand" aria-label="Latenora home">
+      <img
+        src="assets/images/global/latenora-footer-navbar.png"
+        alt="Latenora"
+        class="navbar-brand-image"
+      />
+    </a>
+
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true">Products</button>
+        <div class="dropdown-menu" role="menu">
+          <a href="habitsight.html" role="menuitem">HabitSight</a>
+        </div>
+      </div>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <nav class="product-nav" aria-label="HabitSight product navigation">
+    <a href="habitsight.html" class="product-nav-link active" aria-current="page">Overview</a>
+    <a href="app-details.html" class="product-nav-link">App Details</a>
+    <a href="privacy.html" class="product-nav-link">Privacy Policy</a>
+    <a href="instructions.html" class="product-nav-link">Working Instructions</a>
+    <a href="faq.html" class="product-nav-link">FAQ</a>
+    <a href="support.html" class="product-nav-link">Support</a>
+  </nav>
+
+  <main>
+    <section id="home" class="hero container">
+      <div class="hero-copy">
+        <div class="eyebrow">PRIVACY DRIVEN. ALWAYS.</div>
+        <h1>Your privacy is<br><span>our priority.</span></h1>
+        <p class="subtitle">All your data stays on your device. No ads. No tracking. No account required.</p>
+
+        <div class="pill-row">
+          <div class="pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+            On-device only
+          </div>
+          <div class="pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            No tracking
+          </div>
+          <div class="pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            No account
+          </div>
+        </div>
+
+        <div class="actions">
+          <a href="app-details.html" class="primary-btn">App Details</a>
+          <a href="faq.html" class="secondary-btn">FAQ</a>
+        </div>
+
+        <p class="made">Built with privacy-conscious principles.</p>
+      </div>
+
+      <div class="hero-visual">
+        <div class="phone-stage">
+          <div class="phone-glow"></div>
+          <div class="phone" aria-label="HabitSight app preview">
+            <div class="screen">
+              <div class="notch"></div>
+              <img
+                src="assets/images/habitsight/habitsight-dashboard-overview.png"
+                alt="HabitSight dashboard overview showing privacy-driven digital habit insights"
+                class="app-screenshot"
+                loading="eager"
+                decoding="async"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container" aria-labelledby="digital-routines-title">
+      <div class="feature-showcase">
+        <div class="feature-copy">
+          <h2 id="digital-routines-title">Build healthier digital routines.</h2>
+          <p>Track usage patterns, discover insights, and stay focused with privacy-conscious digital wellness tools.</p>
+        </div>
+
+        <div class="feature-media">
+          <img
+            src="assets/images/habitsight/habitsight-focus-insights.png"
+            alt="HabitSight focus insights screen showing digital wellness patterns"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="section product-hub-section container">
+      <div class="product-hub-panel">
+        <div class="section-head">
+          <h2>HabitSight Product Hub</h2>
+          <p>Explore product details, privacy policy, working instructions, FAQ, and support resources.</p>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <div class="card-title">App Details</div>
+            <p>Learn about HabitSight's design, features, and compatibility.</p>
+            <a href="app-details.html" class="nav-cta">App Details</a>
+          </article>
+
+          <article class="card">
+            <div class="card-title">Privacy Policy</div>
+            <p>Read the HabitSight privacy policy that explains data use and local processing.</p>
+            <a href="privacy.html" class="nav-cta">Privacy Policy</a>
+          </article>
+
+          <article class="card">
+            <div class="card-title">Working Instructions</div>
+            <p>Get started quickly with step-by-step setup and permission guidance.</p>
+            <a href="instructions.html" class="nav-cta">Working Instructions</a>
+          </article>
+
+          <article class="card">
+            <div class="card-title">FAQ</div>
+            <p>Find answers to common HabitSight questions and product details.</p>
+            <a href="faq.html" class="nav-cta">FAQ</a>
+          </article>
+
+          <article class="card">
+            <div class="card-title">Support</div>
+            <p>Contact the team for product support, feedback, or technical questions.</p>
+            <a href="support.html" class="nav-cta">Support</a>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>Company</h4>
+          <a href="index.html">Home</a>
+          <a href="index.html#about-latenora">About</a>
+          <a href="contact.html">Contact</a>
+        </div>
+
+        <div>
+          <h4>Products</h4>
+          <a href="habitsight.html">HabitSight</a>
+          <a href="app-details.html">App Details</a>
+          <a href="instructions.html">Working Instructions</a>
+          <a href="faq.html">FAQ</a>
+          <a href="support.html">Support</a>
+        </div>
+
+        <div>
+          <h4>Legal</h4>
+          <a href="privacy.html">HabitSight Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+        </div>
+
+        <div>
+          <h4>Contact</h4>
+          <a href="mailto:support@latenora.com">support@latenora.com</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Latenora. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
