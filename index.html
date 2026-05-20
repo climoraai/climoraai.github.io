@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Latenora</title>
-  <meta name="description" content="Latenora builds calm, privacy-conscious digital products including HabitSight, an on-device digital insight app for healthier routines." />
+  <title>Latenora | Intelligent Systems</title>
+  <meta name="description" content="Latenora builds privacy-conscious intelligent systems and digital products including HabitSight." />
   <link rel="icon" type="image/png" href="assets/images/global/latenora-icon.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,6 +17,489 @@
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/pages.css">
 
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #07071f;
+      background: #fbfaff;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(1180px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    main {
+      background:
+        radial-gradient(circle at 80% 35%, rgba(123, 92, 255, 0.17), transparent 30%),
+        linear-gradient(180deg, #ffffff 0%, #fbfaff 100%);
+    }
+
+    .hero {
+      width: min(1180px, calc(100% - 48px));
+      margin: 0 auto;
+      min-height: 650px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 72px;
+      padding: 76px 0 70px;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -160px;
+      top: 190px;
+      width: 560px;
+      height: 210px;
+      background: linear-gradient(135deg, rgba(137, 95, 255, 0.22), rgba(137, 95, 255, 0.08));
+      border-radius: 60% 40% 55% 45%;
+      transform: rotate(-12deg);
+      z-index: 0;
+    }
+
+    .hero-copy,
+    .hero-card {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 21px;
+      border-radius: 999px;
+      background: #eee7ff;
+      border: 1px solid #d7c8ff;
+      color: #5b35ee;
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      max-width: 670px;
+      font-size: clamp(44px, 5.4vw, 72px);
+      line-height: 1.03;
+      letter-spacing: -0.04em;
+      font-weight: 900;
+      margin-bottom: 30px;
+    }
+
+    .lead {
+      max-width: 650px;
+      font-size: clamp(18px, 1.6vw, 20px);
+      line-height: 1.7;
+      color: #4f5b73;
+      font-weight: 500;
+    }
+
+    .actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 36px;
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-view-product,
+    .btn-google-play {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 58px;
+      padding: 0 30px;
+      border-radius: 18px;
+      font-weight: 900;
+      font-size: 15px;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, #7c4dff, #5b35ee);
+      box-shadow: 0 22px 42px rgba(91, 53, 238, 0.24);
+    }
+
+    .btn-secondary,
+    .btn-view-product {
+      color: #090a22;
+      background: #fff;
+      border: 1px solid rgba(10, 10, 30, 0.1);
+      box-shadow: 0 15px 35px rgba(20, 20, 50, 0.06);
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover,
+    .btn-view-product:hover,
+    .btn-google-play:hover {
+      transform: translateY(-2px);
+    }
+
+    .featured-product-card {
+      width: 100%;
+      max-width: 510px;
+      margin-left: auto;
+      padding: 44px;
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at 92% 8%, rgba(126, 86, 255, 0.08), transparent 36%),
+        rgba(255,255,255,0.88);
+      border: 1px solid rgba(120, 93, 255, 0.14);
+      box-shadow: 0 28px 72px rgba(40, 35, 85, 0.11);
+      backdrop-filter: blur(18px);
+    }
+
+    .featured-product-header {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      margin-bottom: 28px;
+    }
+
+    .featured-icon img {
+      width: 68px;
+      height: 68px;
+      border-radius: 18px;
+      display: block;
+      box-shadow: 0 12px 26px rgba(42, 31, 110, 0.25);
+    }
+
+    .featured-product-header p {
+      color: #6d3df5;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .featured-title {
+      font-size: 38px;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      font-weight: 900;
+      margin-bottom: 22px;
+    }
+
+    .featured-copy {
+      color: #4f5b73;
+      font-size: 18px;
+      line-height: 1.75;
+      font-weight: 500;
+      margin-bottom: 34px;
+    }
+
+    .featured-product-actions {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .product-disclaimer {
+      margin: 26px 0 0;
+      padding-top: 20px;
+      border-top: 1px solid rgba(15, 23, 42, 0.08);
+      color: #6d7486;
+      font-size: 13px;
+      line-height: 1.6;
+      font-weight: 600;
+    }
+
+    .btn-view-product {
+      min-height: 52px;
+      padding: 0 26px;
+      border-radius: 999px;
+    }
+
+    .btn-google-play {
+      min-height: 52px;
+      padding: 0 24px;
+      border-radius: 999px;
+      color: #fff;
+      background: #07071f;
+      gap: 10px;
+    }
+
+    .play-triangle {
+      width: 0;
+      height: 0;
+      border-top: 9px solid transparent;
+      border-bottom: 9px solid transparent;
+      border-left: 14px solid #6d3df5;
+      display: inline-block;
+    }
+
+    .section {
+      width: min(1180px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 72px 0;
+    }
+
+    .section-head {
+      max-width: 850px;
+    }
+
+    .section h2 {
+      font-size: clamp(34px, 4vw, 52px);
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      font-weight: 900;
+      margin-bottom: 28px;
+    }
+
+    .section p {
+      color: #4f5b73;
+      font-size: clamp(18px, 1.55vw, 19px);
+      line-height: 1.72;
+      font-weight: 500;
+      margin-bottom: 22px;
+    }
+
+    .vision-mission-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 32px;
+      align-items: stretch;
+    }
+
+    .vision-mission-card,
+    .feature-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .vision-mission-card {
+      min-height: 280px;
+      padding: 40px;
+      border-radius: 30px;
+      background: #ffffff;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      box-shadow: 0 18px 48px rgba(15, 23, 42, 0.05);
+    }
+
+    .vision-mission-card h3 {
+      font-size: clamp(24px, 2vw, 28px);
+      line-height: 1.15;
+      letter-spacing: 0;
+      font-weight: 900;
+      color: #07071f;
+      margin-bottom: 18px;
+    }
+
+    .vision-mission-card p {
+      font-size: clamp(17px, 1.45vw, 19px);
+      line-height: 1.65;
+      color: #4f5b73;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 48px;
+    }
+
+    .feature-card {
+      min-height: 292px;
+      padding: 40px;
+      border-radius: 30px;
+      background: #ffffff;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      box-shadow: 0 18px 48px rgba(15, 23, 42, 0.05);
+    }
+
+    .feature-card h3 {
+      font-size: clamp(24px, 2vw, 26px);
+      line-height: 1.14;
+      letter-spacing: 0;
+      font-weight: 900;
+      color: #07071f;
+      margin-bottom: 18px;
+    }
+
+    .feature-card p {
+      font-size: clamp(17px, 1.35vw, 18px);
+      line-height: 1.65;
+      color: #4f5b73;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    .why-latenora-section .section-head {
+      max-width: 760px;
+    }
+
+    .why-latenora-section .eyebrow {
+      background: #eee7ff;
+      border: 1px solid #d7c8ff;
+      color: #5b35ee;
+    }
+
+    .why-latenora-section h2 {
+      max-width: 760px;
+      font-size: clamp(34px, 3.6vw, 48px);
+      line-height: 1.08;
+      letter-spacing: -0.032em;
+      margin-bottom: 22px;
+    }
+
+    .why-latenora-section .section-head p {
+      max-width: 760px;
+      font-size: clamp(17px, 1.45vw, 18px);
+      line-height: 1.7;
+      color: #4f5b73;
+      margin-bottom: 0;
+    }
+
+    .why-latenora-section .feature-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 32px;
+      align-items: stretch;
+      margin-top: 46px;
+    }
+
+    .why-latenora-section .feature-card {
+      min-height: 292px;
+    }
+
+    .why-latenora-section .feature-card h3 {
+      font-size: clamp(24px, 2vw, 26px);
+    }
+
+    .why-latenora-section .feature-card p {
+      font-size: clamp(17px, 1.35vw, 18px);
+    }
+
+    .footer {
+      background: #05051b;
+      color: #fff;
+      padding: 78px 0 46px;
+    }
+
+    .footer-grid {
+      width: min(1180px, calc(100% - 48px));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 52px;
+    }
+
+    .footer h4 {
+      font-size: 14px;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+      letter-spacing: 0.04em;
+    }
+
+    .footer a {
+      display: block;
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 13px;
+      font-weight: 650;
+      font-size: 15px;
+    }
+
+    .footer-bottom {
+      width: min(1180px, calc(100% - 48px));
+      margin: 56px auto 0;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.13);
+      color: rgba(255,255,255,0.75);
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    @media (max-width: 920px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding: 58px 0;
+      }
+
+      .featured-product-card {
+        margin: 0;
+        max-width: 100%;
+      }
+
+      .vision-mission-grid,
+      .feature-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .vision-mission-card {
+        min-height: auto;
+        padding: 28px;
+      }
+
+      .why-latenora-section .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .why-latenora-section .feature-card {
+        min-height: auto;
+        padding: 32px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .container,
+      .section,
+      .hero,
+      .footer-grid,
+      .footer-bottom {
+        width: min(100% - 28px, 1180px);
+      }
+
+      h1 {
+        font-size: 44px;
+      }
+
+      .featured-product-card {
+        padding: 28px;
+      }
+
+      .section {
+        padding: 58px 0;
+      }
+
+      .why-latenora-section .feature-card {
+        padding: 28px;
+      }
+
+      .featured-product-actions,
+      .actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn-primary,
+      .btn-secondary,
+      .btn-view-product,
+      .btn-google-play {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -31,13 +514,7 @@
 
     <nav class="nav-links" aria-label="Main navigation">
       <a href="index.html">Home</a>
-      <div class="nav-dropdown">
-        <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true">Products</button>
-        <div class="dropdown-menu" role="menu">
-          <a href="habitsight.html" role="menuitem">HabitSight</a>
-          <a href="latenora-motion.html" role="menuitem">Latenora Motion</a>
-        </div>
-      </div>
+      <a href="products.html">Products</a>
       <a href="contact.html">Contact</a>
     </nav>
   </header>
@@ -45,105 +522,114 @@
   <main>
     <section class="hero">
       <div class="hero-copy">
-        <div class="eyebrow">PRIVACY-CONSCIOUS DIGITAL PRODUCTS</div>
-        <h1>Build better digital routines with Latenora.</h1>
-        <p class="lead">Latenora creates calm, privacy-conscious digital products that help people understand their habits, protect their attention, and use technology with more intention.</p>
-        <div class="actions">
-          <a href="habitsight.html" class="btn-primary">Explore HabitSight <span aria-hidden="true">&rarr;</span></a>
-          <a href="privacy.html" class="btn-secondary">View Privacy Policy</a>
-        </div>
+        <div class="eyebrow">INTELLIGENT SYSTEMS</div>
+        <h1>Unlocking hidden value through intelligent system design.</h1>
+        <p class="lead">
+          Latenora builds privacy-conscious intelligent systems that transform digital behavior and operational patterns into meaningful insight, adaptive automation, and smarter experiences.
+        </p>
 
-        <div class="trust-badges" aria-label="HabitSight privacy highlights">
-          <span>No account required</span>
-          <span>On-device insights</span>
-          <span>No advertising SDKs</span>
+        <div class="actions">
+          <a href="#about-latenora" class="btn-primary">About Latenora</a>
+          <a href="products.html" class="btn-secondary">Explore Products</a>
         </div>
       </div>
 
       <div class="hero-card">
         <div class="featured-product-card">
-          <div class="featured-product-media">
-            <img
-              src="assets/images/habitsight/habitsight-dashboard-overview.png"
-              alt="HabitSight dashboard overview showing privacy-conscious digital insight"
-              loading="eager"
-              decoding="async"
-            />
-          </div>
-
           <div class="featured-product-header">
             <span class="featured-icon" aria-hidden="true">
               <img src="assets/images/habitsight/habitsight-app-icon.png" alt="HabitSight app icon" />
             </span>
-            <p>Featured Product</p>
+            <p>FEATURED PRODUCT</p>
           </div>
 
           <h2 class="featured-title">HabitSight</h2>
-          <p class="featured-copy">Understand your screen time with privacy-conscious, on-device insights. No account required.</p>
-          <div class="featured-product-actions">
-            <a href="habitsight.html" class="btn-view-product">
-              View HabitSight
-            </a>
+          <p class="featured-copy">
+            Understand your digital habits with on-device behavior intelligence, privacy-conscious insights, no tracking, no ads, and no account required.
+          </p>
 
-            <a href="privacy.html" class="btn-secondary featured-secondary">
-              Privacy Policy
+          <div class="featured-product-actions">
+            <a href="habitsight.html" class="btn-view-product">View HabitSight</a>
+            <a href="#" class="btn-google-play" aria-label="Get it on Google Play">
+              <span class="play-triangle" aria-hidden="true"></span>
+              <span>Get it on Google Play</span>
             </a>
           </div>
+
+          <p class="product-disclaimer">
+            HabitSight provides informational digital behavior insights only and is not medical, psychological, or professional advice.
+          </p>
         </div>
       </div>
     </section>
 
-    <section class="section home-products-section">
-      <div class="container">
-        <div class="section-head">
-          <div class="eyebrow">FIRST RELEASE</div>
-          <h2>HabitSight is the first Latenora product.</h2>
-          <p class="lead">A privacy-conscious Android app for understanding screen time, usage patterns, and daily attention without requiring an account.</p>
-        </div>
-
-        <div class="home-product-grid">
-          <article class="home-product-card home-product-card-featured">
-            <div class="product-card-kicker">Available first release</div>
-            <h3>HabitSight</h3>
-            <p>Understand your screen time with privacy-conscious, on-device insights designed for calm, practical digital awareness.</p>
-            <a href="habitsight.html" class="nav-cta">View HabitSight</a>
-          </article>
-
-          <article class="home-product-card home-product-card-muted">
-            <div class="product-card-kicker">Future concept / In development</div>
-            <h3>Latenora Motion</h3>
-            <p>A future exploration for motion, focus, and adaptive digital experiences. More details will be shared when it is ready.</p>
-          </article>
-        </div>
+    <section class="section" id="about-latenora">
+      <div class="section-head">
+        <div class="eyebrow">ABOUT LATENORA</div>
+        <h2>Building intelligent systems for a more efficient world.</h2>
+        <p>
+          Latenora creates intelligent technologies that improve efficiency, reveal hidden opportunities, and support clearer decision-making through privacy-conscious digital systems and adaptive automation.
+        </p>
+        <p>
+          We believe inefficiency is not waste &mdash; it is hidden value waiting to be understood, optimized, and unlocked.
+        </p>
       </div>
     </section>
 
-    <section class="section about-section" id="about-latenora">
-      <div class="container">
-        <div class="about-latenora-panel">
-          <div class="eyebrow">ABOUT LATENORA</div>
-          <h2>Technology should respect your attention.</h2>
-          <p class="lead">Latenora builds thoughtful digital tools designed around clarity, privacy, and practical everyday value.</p>
-        </div>
+    <section class="section vision-mission-section" id="mission">
+      <div class="vision-mission-grid">
+        <article class="vision-mission-card">
+          <h3>Our Vision</h3>
+          <p>
+            To shape a future where intelligent systems help people and industries operate with greater clarity, adaptability, and long-term efficiency.
+          </p>
+        </article>
+
+        <article class="vision-mission-card">
+          <h3>Our Mission</h3>
+          <p>
+            To build intelligent and privacy-conscious digital products that combine practical innovation, adaptive automation, and on-device insight to solve real-world inefficiencies responsibly.
+          </p>
+        </article>
       </div>
     </section>
+
+    <section class="section why-latenora-section">
+      <div class="section-head">
+        <div class="eyebrow">WHY LATENORA</div>
+        <h2>Built with intelligence. Designed for impact.</h2>
+        <p>
+          Latenora combines intelligent systems design, privacy-driven innovation, and engineering discipline to create technologies that are scalable, responsible, and built for long-term adaptability.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <h3>AI-Assisted Insight</h3>
+          <p>Intelligent systems designed to uncover hidden value, detect patterns, and transform digital behavior into useful, human-centered insight.</p>
+        </article>
+
+        <article class="feature-card">
+          <h3>Privacy-Driven Intelligence</h3>
+          <p>Modern digital products built with secure, privacy-conscious architecture that protects trust while delivering meaningful intelligent experiences.</p>
+        </article>
+
+        <article class="feature-card">
+          <h3>Adaptive Automation</h3>
+          <p>Future-ready systems engineered for smarter workflows, scalable automation, and sustainable long-term digital experiences.</p>
+        </article>
+      </div>
+    </section>
+
   </main>
 
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
-        <div class="footer-brand-block">
-          <img
-            src="assets/images/global/latenora-footer-brand.png"
-            alt="Latenora"
-            class="footer-brand-image"
-          />
-        </div>
-
         <div>
           <h4>Company</h4>
           <a href="index.html">Home</a>
-          <a href="index.html#about-latenora">About</a>
+          <a href="#about-latenora">About</a>
           <a href="contact.html">Contact</a>
         </div>
 

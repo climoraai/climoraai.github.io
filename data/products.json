@@ -1,0 +1,13 @@
+{
+  "products": [
+    {
+      "id": "habitsight",
+      "name": "HabitSight",
+      "tag": "HABIT TRACKING",
+      "title": "Build lasting habits with smart insights",
+      "description": "Track your daily habits, get personalized insights, and stay motivated with beautiful visualizations.",
+      "icon": "assets/images/habitsight/habitsight-app-icon.png",
+      "link": "habitsight.html"
+    }
+  ]
+}
