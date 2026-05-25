@@ -55,22 +55,29 @@
     }
 
     .hero::after {
-      content: "";
-      position: absolute;
-      right: -160px;
-      top: 190px;
-      width: 560px;
-      height: 210px;
-      background: linear-gradient(135deg, rgba(137, 95, 255, 0.22), rgba(137, 95, 255, 0.08));
-      border-radius: 60% 40% 55% 45%;
-      transform: rotate(-12deg);
-      z-index: 0;
+      content: none;
     }
 
     .hero-copy,
     .hero-card {
       position: relative;
       z-index: 1;
+    }
+
+    .hero-card {
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      transition: none;
+    }
+
+    .hero-card:hover {
+      transform: none;
+      box-shadow: none;
     }
 
     .eyebrow {
@@ -161,7 +168,9 @@
         radial-gradient(circle at 92% 8%, rgba(126, 86, 255, 0.08), transparent 36%),
         rgba(255,255,255,0.88);
       border: 1px solid rgba(120, 93, 255, 0.14);
-      box-shadow: 0 28px 72px rgba(40, 35, 85, 0.11);
+      box-shadow:
+        0 30px 74px rgba(40, 35, 85, 0.13),
+        0 18px 48px rgba(111, 66, 255, 0.08);
       backdrop-filter: blur(18px);
     }
 
@@ -504,7 +513,7 @@
 
 <body>
   <header class="navbar">
-    <a href="index.html" class="brand" aria-label="Latenora home">
+    <a class="brand home-active" aria-label="Latenora home" aria-current="page">
       <img
         src="assets/images/global/latenora-footer-navbar.png"
         alt="Latenora"

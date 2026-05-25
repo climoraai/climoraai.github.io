@@ -43,6 +43,8 @@ main {
   gap: 0.95rem;
   text-decoration: none;
   flex: 0 0 auto;
+  pointer-events: none;
+  cursor: default;
 }
 
 .navbar .brand {
